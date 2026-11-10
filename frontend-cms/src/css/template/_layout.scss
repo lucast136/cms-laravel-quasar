@@ -1,0 +1,118 @@
+@import './variables';
+
+.bg-very-light-gray {
+  background-color: $theme-gray;
+}
+
+.bg-dark-section {
+  background-color: $theme-dark;
+  color: #ffffff;
+}
+
+.section-padding {
+  padding: 85px 0;
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 50px 0;
+  }
+}
+
+.section-heading {
+  margin-bottom: 45px;
+  text-align: center;
+  position: relative;
+
+  .sub-title {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: $theme-secondary;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: rgba(255, 112, 41, 0.15);
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .sub-title.primary {
+    color: $theme-primary;
+    background-color: rgba(47, 191, 167, 0.15);
+  }
+
+  .sub-title.white {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 0;
+
+    @media (max-width: 768px) {
+      font-size: 26px;
+    }
+  }
+
+  &.text-start {
+    text-align: left;
+  }
+}
+
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.image-hover {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    transition: transform 0.8s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.aboutus-style-01 {
+  .about-badge {
+    background: #ffffff;
+    display: flex;
+    border-left: 4px solid $theme-primary;
+    max-width: 290px;
+    box-shadow: 0px 15px 35px rgba(1, 11, 60, 0.1);
+    align-items: center;
+    padding: 20px 25px;
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    z-index: 10;
+    border-radius: 6px;
+    animation: movebounce 4s infinite ease-in-out;
+
+    .counter-val {
+      font-weight: 800;
+      font-size: 38px;
+      line-height: 1;
+      color: $theme-primary;
+      margin-right: 15px;
+      font-family: $font-heading;
+    }
+
+    p {
+      line-height: 1.2;
+      font-weight: 700;
+      color: $theme-dark;
+      font-size: 13px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+}

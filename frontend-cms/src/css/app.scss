@@ -1,0 +1,40 @@
+// Google Fonts: Mulish & Montserrat
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Mulish:wght@300;400;500;600;700;800&display=swap');
+
+// Estilos modulares extraídos de la plantilla eLearn
+@import './template/variables';
+@import './template/buttons';
+@import './template/shapes';
+@import './template/cards';
+@import './template/layout';
+@import './template/blog';
+@import './template/icons';
+
+body {
+  font-family: $font-main;
+  color: $theme-text;
+  font-size: 15px;
+  line-height: 1.6;
+  background-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-heading;
+  color: $theme-dark;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  &:hover {
+    color: $theme-primary;
+  }
+}

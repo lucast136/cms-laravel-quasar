@@ -1,0 +1,373 @@
+@import './variables';
+
+// Tarjetas de Servicios / Info (Card Style 3)
+.card-style3 {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  height: 100%;
+  padding: 30px 25px;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: $theme-primary;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+}
+
+// Tarjetas de Cursos (Card Style 1)
+.card-style1 {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.12);
+
+    .card-img img {
+      transform: scale(1.08);
+    }
+
+    .course-tag {
+      background-color: $theme-primary;
+      color: #ffffff;
+    }
+  }
+
+  .card-img {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    border-bottom: 3px solid $theme-primary;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .course-tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ffffff;
+      color: $theme-primary;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 15px;
+      color: #ffffff;
+      font-size: 18px;
+      z-index: 2;
+      transition: color 0.3s ease;
+      background: none;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        color: $theme-secondary;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 25px 20px 20px;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .card-author {
+      display: flex;
+      align-items: center;
+      margin-top: -45px;
+      margin-bottom: 15px;
+
+      .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .author-name {
+        margin-left: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        color: $theme-dark;
+      }
+    }
+  }
+}
+
+// Tarjetas de Categorías (Category item 01)
+.category-item-01 {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 22px 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid $theme-border;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $theme-primary;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(47, 191, 167, 0.15);
+
+    .category-icon {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .category-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    transition: transform 0.4s ease;
+    flex-shrink: 0;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .category-info {
+    h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: $theme-dark;
+    }
+    span {
+      font-size: 13px;
+      color: $theme-text;
+    }
+  }
+}
+
+// Tarjetas de Docentes (Team Style 1)
+.team-style1 {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+
+  .team-img {
+    height: 340px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .team-info {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+
+    h4 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    span {
+      font-size: 13px;
+      color: $theme-primary;
+      font-weight: 600;
+    }
+  }
+
+  .team-overlay {
+    position: absolute;
+    inset: 15px;
+    background: rgba(47, 191, 167, 0.92);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+    padding: 20px;
+    text-align: center;
+
+    .social-links a {
+      color: #ffffff;
+      font-size: 16px;
+      margin: 0 8px;
+      transition: transform 0.2s;
+      &:hover {
+        transform: scale(1.2);
+        color: $theme-secondary;
+      }
+    }
+  }
+
+  &:hover {
+    .team-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team-info {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+}
+
+// Contador (Counter Wrapper)
+.counter-box {
+  display: flex;
+  align-items: center;
+
+  .counter-icon {
+    width: 75px;
+    height: 75px;
+    border: 2px dotted $theme-secondary;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: $theme-secondary;
+    flex-shrink: 0;
+  }
+
+  .counter-text {
+    margin-left: 20px;
+    .counter-number {
+      font-size: 34px;
+      font-weight: 800;
+      color: $theme-primary;
+      line-height: 1;
+      font-family: $font-heading;
+    }
+    .counter-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: $theme-dark;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// Event Wrapper
+.event-box {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .event-img {
+    width: 40%;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .event-content {
+    width: 60%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .event-meta {
+      font-size: 13px;
+      color: $theme-secondary;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .event-location {
+      font-size: 13px;
+      color: $theme-text;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    .event-img {
+      width: 100%;
+      height: 180px;
+    }
+    .event-content {
+      width: 100%;
+    }
+  }
+}

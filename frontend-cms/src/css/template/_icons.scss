@@ -1,0 +1,36 @@
+// Definición y corrección de íconos Themify y FontAwesome
+// Permite que <i class="ti-..."> y <i class="fa..."> se rendericen correctamente
+
+@font-face {
+  font-family: 'themify';
+  src:
+    url('/fonts/themify_3080254.woff') format('woff'),
+    url('/fonts/themify_3997778.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Selector universal para íconos Themify (corrige el error donde se mostraban rectángulos vacíos ▯)
+[class^='ti-'],
+[class*=' ti-'] {
+  font-family: 'themify' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+// Asegurar que íconos de FontAwesome mantengan alineación y renderizado
+.fas,
+.far,
+.fab,
+.fa {
+  display: inline-block;
+  line-height: 1;
+}

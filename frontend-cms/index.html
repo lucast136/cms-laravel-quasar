@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= productName %></title>
+
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="<%= productDescription %>" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover<% } %>"
+    />
+
+    <link rel="icon" type="image/png" sizes="128x128" href="/icons/favicon-128x128.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="icon" type="image/ico" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png" />
+    <!-- Icon Fonts: FontAwesome 6 (Full v4/v5/v6 aliases) & Themify Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/themify-icons@0.1.2/css/themify-icons.css"
+    />
+    <link rel="preload" as="image" href="/img/logos/escudo-dpm.svg" />
+    <style>
+      #dpm-initial-loader {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ffffff;
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: all;
+        user-select: none;
+        opacity: 1;
+        transition: opacity 0.35s ease;
+      }
+      #dpm-initial-loader.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .dpm-boot-emblem {
+        position: relative;
+        width: 148px;
+        height: 148px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dpm-boot-ring-track {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3.5px solid rgba(0, 50, 120, 0.09);
+      }
+      .dpm-boot-ring-primary {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3.5px solid transparent;
+        border-top-color: #003278;
+        border-right-color: #003278;
+        animation: dpm-boot-spin 1.05s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+      }
+      .dpm-boot-ring-accent {
+        position: absolute;
+        inset: 9px;
+        border-radius: 50%;
+        border: 2.5px solid transparent;
+        border-bottom-color: #ed3237;
+        border-left-color: rgba(237, 50, 55, 0.35);
+        animation: dpm-boot-spin-reverse 1.45s linear infinite;
+      }
+      .dpm-boot-shield {
+        width: 88px;
+        height: 88px;
+        object-fit: contain;
+        position: relative;
+        z-index: 2;
+        animation: dpm-boot-pulse 1.8s ease-in-out infinite;
+      }
+      @keyframes dpm-boot-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes dpm-boot-spin-reverse {
+        0% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+      @keyframes dpm-boot-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.04);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dpm-initial-loader" role="status" aria-live="polite" aria-label="Cargando página">
+      <div class="dpm-boot-emblem">
+        <span class="dpm-boot-ring-track" aria-hidden="true"></span>
+        <span class="dpm-boot-ring-primary" aria-hidden="true"></span>
+        <span class="dpm-boot-ring-accent" aria-hidden="true"></span>
+        <img
+          src="/img/logos/escudo-dpm.svg"
+          alt="Escudo IESTP DEPERU MASTER"
+          class="dpm-boot-shield"
+        />
+      </div>
+    </div>
+    <!-- quasar:entry-point -->
+  </body>
+</html>

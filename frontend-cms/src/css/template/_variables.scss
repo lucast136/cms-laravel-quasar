@@ -1,0 +1,34 @@
+// Paleta de Colores Institucional - IESTP DePerú Master
+// Basada en: paleta_colores_preview.html
+
+// Colores Principales de Marca
+$theme-primary: #003278; // Azul Institucional (Navbar, encabezados, branding)
+$theme-secondary: #ed3237; // Rojo Institucional (Llamados a la acción CTA, acentos, peruanidad)
+$theme-accent: #004b87; // Azul Real Intermedio (Degradados, hover, bordes de acento)
+$theme-gold: #e5a93c; // Oro Académico (Distinción, estrellas de calificación, condecoraciones)
+
+// Superficies y Fondos Neutros
+$theme-bg: #f8fafc; // Gris Hielo Neutro (Fondo general en modo claro)
+$theme-card-bg: #ffffff; // Blanco Puro (Tarjetas y modales)
+$theme-gray: #f8fafc; // Gris fondo neutro
+$theme-light-gray: #f1f5f9; // Gris suave para superficies alternas
+$theme-border: #e2e8f0; // Bordes sutiles
+
+// Tipografía y Textos
+$theme-text: #64748b; // Texto secundario / Muted
+$theme-heading: #0f172a; // Texto principal y encabezados
+$theme-dark: #003278; // Color oscuro institucional
+
+// Dark Mode (Superficies oscuras)
+$theme-dark-body: #0a1128; // Azul Abisal (Fondo global Dark Mode)
+$theme-dark-card: #101f3c; // Azul Noche (Tarjetas Dark Mode)
+
+// Tipografías Institucionales
+$font-main:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
+$font-heading: 'Montserrat', sans-serif;
