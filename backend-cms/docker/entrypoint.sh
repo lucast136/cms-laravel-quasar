@@ -25,8 +25,15 @@ if [ -f /var/www/html/.env ]; then
         php /var/www/html/artisan key:generate --force || true
     fi
 
-    # Limpiar caché de configuración antigua
-    php /var/www/html/artisan config:clear || true
+    # Limpiar u optimizar caché según el entorno
+    if [ "${APP_ENV}" = "production" ] || [ "${APP_ENV}" = "staging" ]; then
+        echo "Caching Laravel configuration, routes and views for ${APP_ENV}..."
+        php /var/www/html/artisan config:cache || true
+        php /var/www/html/artisan route:cache || true
+        php /var/www/html/artisan view:cache || true
+    else
+        php /var/www/html/artisan config:clear || true
+    fi
 fi
 
 # Asegurar directorios de almacenamiento, subidas y caché

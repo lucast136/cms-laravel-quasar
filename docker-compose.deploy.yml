@@ -1,0 +1,81 @@
+services:
+  # ============================================================================
+  # Base de Datos MySQL 8.0 (solo red interna Docker, no expuesta al exterior)
+  # ============================================================================
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-deperumaster_cms}
+      MYSQL_USER: ${DB_USERNAME:-cms_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD is required}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    networks:
+      - cms_network
+
+  # ============================================================================
+  # Backend: API Laravel 13 con PHP 8.5 (Nginx + PHP-FPM)
+  # ============================================================================
+  backend:
+    image: ${BACKEND_IMAGE:?BACKEND_IMAGE is required}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    environment:
+      APP_NAME: ${APP_NAME:-"IESTP DEPERU MASTER CMS"}
+      APP_ENV: ${APP_ENV:-staging}
+      APP_KEY: ${APP_KEY:?APP_KEY is required}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:?APP_URL is required}
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-deperumaster_cms}
+      DB_USERNAME: ${DB_USERNAME:-cms_user}
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      SESSION_DRIVER: database
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+    volumes:
+      - backend_storage:/var/www/html/storage
+    networks:
+      - cms_network
+
+  # ============================================================================
+  # Frontend: Quasar SSR con Node.js 24
+  # ============================================================================
+  frontend:
+    image: ${FRONTEND_IMAGE:?FRONTEND_IMAGE is required}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      NODE_ENV: production
+      INTERNAL_API_URL: "http://backend:8000/api/v1"
+    networks:
+      - cms_network
+
+volumes:
+  db_data:
+    driver: local
+  backend_storage:
+    driver: local
+
+networks:
+  cms_network:
+    driver: bridge

@@ -1,13 +1,32 @@
 # ==============================================================================
-# 1. Builder Stage: Instala dependencias y compila la aplicación en modo SSR
+# 1. Base Stage: Dependencias base con npm ci reproducible
 # ==============================================================================
-FROM node:24-alpine AS builder
+FROM node:24-alpine AS base
 
 WORKDIR /app
 
 # Instalar dependencias (ignorando scripts de postinstall que requieren la configuración)
 COPY package*.json ./
-RUN npm install --ignore-scripts
+RUN npm ci --ignore-scripts
+
+# ==============================================================================
+# 2. Dev Stage: Para desarrollo local con hot-reload (quasar dev -m ssr)
+# ==============================================================================
+FROM base AS dev
+
+COPY . .
+RUN npx quasar prepare --silent
+
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
+
+# ==============================================================================
+# 3. Builder Stage: Compila la aplicación en modo SSR
+# ==============================================================================
+FROM base AS builder
 
 # Copiar el resto del código fuente
 COPY . .
@@ -20,9 +39,9 @@ ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 # ==============================================================================
-# 2. Production Runner Stage: Imagen ligera y optimizada para servir SSR
+# 4. Production Runner Stage (por defecto): Imagen ligera para servir SSR
 # ==============================================================================
-FROM node:24-alpine AS runner
+FROM node:24-alpine AS prod
 
 WORKDIR /app
 
