@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
+export const API_BASE_URL =
+  typeof window === 'undefined'
+    ? process.env.INTERNAL_API_URL || 'http://backend:8000/api/v1'
+    : import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
 export const SANCTUM_TOKEN_KEY = 'cms_dpm_sanctum_token'
 
 const api = axios.create({
@@ -12,10 +15,13 @@ const api = axios.create({
   },
 })
 
-// Interceptor de Petición: Inyecta Token Bearer de Laravel Sanctum
+// Interceptor de Petición: Ajuste de URL para SSR (Docker interno) vs Cliente y Token Bearer
 api.interceptors.request.use(
   (config) => {
-    if (typeof window !== 'undefined') {
+    if (typeof window === 'undefined') {
+      config.baseURL = process.env.INTERNAL_API_URL || 'http://backend:8000/api/v1'
+    } else {
+      config.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
       const token = localStorage.getItem(SANCTUM_TOKEN_KEY)
       if (token) {
         config.headers.Authorization = `Bearer ${token}`

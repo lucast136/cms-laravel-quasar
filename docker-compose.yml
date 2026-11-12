@@ -1,0 +1,88 @@
+services:
+  # ============================================================================
+  # Base de Datos MySQL 8.0
+  # ============================================================================
+  db:
+    image: mysql:8.0
+    container_name: cms_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: deperumaster_cms
+      MYSQL_ROOT_PASSWORD: "1234"
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p1234 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    networks:
+      - cms_network
+
+  # ============================================================================
+  # Backend: API Laravel 13 con PHP 8.5 (Nginx + PHP-FPM)
+  # ============================================================================
+  backend:
+    build:
+      context: ./backend-cms
+      dockerfile: Dockerfile
+    container_name: cms_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: "IESTP DEPERU MASTER CMS"
+      APP_ENV: local
+      APP_KEY: "base64:M9RmXyeIDa/HwRFK60JBmrnkTh1GQoIAk9eWBgPl6kc="
+      APP_DEBUG: "true"
+      APP_URL: "http://localhost:8000"
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: deperumaster_cms
+      DB_USERNAME: root
+      DB_PASSWORD: "1234"
+      SESSION_DRIVER: database
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+    volumes:
+      - ./backend-cms/storage:/var/www/html/storage
+    networks:
+      - cms_network
+
+  # ============================================================================
+  # Frontend: Quasar SSR con Node.js 24
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend-cms
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: "http://localhost:8000/api/v1"
+    container_name: cms_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      NODE_ENV: production
+      INTERNAL_API_URL: "http://backend:8000/api/v1"
+    networks:
+      - cms_network
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  cms_network:
+    driver: bridge

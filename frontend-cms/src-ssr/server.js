@@ -27,9 +27,16 @@ export const create = defineSsrCreate(async (/* { ... } */) => {
     /**
      * Optional: secure your app with Helmet
      * (https://helmetjs.github.io/)
+     * Deshabilitamos CSP por defecto para permitir la hidratación SSR (__INITIAL_STATE__),
+     * peticiones Axios a la API del backend (:8000) y recursos multimedia externos.
      */
     const { default: helmet } = await import('helmet')
-    app.use(helmet())
+    app.use(
+      helmet({
+        contentSecurityPolicy: false,
+        crossOriginEmbedderPolicy: false,
+      })
+    )
 
     const { default: compression } = await import('compression')
     app.use(compression())

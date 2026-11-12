@@ -129,5 +129,24 @@
       </div>
     </div>
     <!-- quasar:entry-point -->
+    <script>
+      if (
+        !document.getElementById('qmeta-init') &&
+        !document.body.hasAttribute('data-server-rendered')
+      ) {
+        window.__Q_META__ = {
+          title: document.title || '',
+          titleTemplate: null,
+          meta: {},
+          link: {},
+          script: {},
+          htmlAttr: {},
+          bodyAttr: {},
+        };
+        var qmetaFallback = document.createElement('script');
+        qmetaFallback.id = 'qmeta-init';
+        document.body.appendChild(qmetaFallback);
+      }
+    </script>
   </body>
 </html>
