@@ -1,7 +1,7 @@
-FROM php:8.5-fpm-alpine AS base
+FROM php:8.5.12-fpm-alpine AS base
 
-# Instalar dependencias del sistema y librerías de desarrollo
-RUN apk add --no-cache \
+# Actualizar paquetes base (incluyendo brotli-libs) e instalar dependencias del sistema
+RUN apk update && apk upgrade --no-cache && apk add --no-cache \
     nginx \
     supervisor \
     curl \
@@ -15,7 +15,7 @@ RUN apk add --no-cache \
     icu-dev \
     oniguruma-dev
 
-# Configurar e instalar extensiones nativas de PHP (incluyendo opcache)
+# Configurar e instalar extensiones nativas de PHP (OPcache ya viene integrado en PHP 8.5)
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo_mysql \
@@ -24,8 +24,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         pcntl \
         gd \
         zip \
-        intl \
-        opcache
+        intl
 
 # Permitir que PHP-FPM reciba variables de entorno de Docker
 RUN echo "clear_env = no" >> /usr/local/etc/php-fpm.d/zz-docker.conf
