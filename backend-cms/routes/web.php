@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('CMS - powerded by DYLG Solutions SAC');
+    return 'CMS - powerded by DYLG Solutions SAC';
 });
