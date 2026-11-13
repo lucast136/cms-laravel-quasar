@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const API_BASE_URL =
   typeof window === 'undefined'
-    ? process.env.INTERNAL_API_URL || 'http://backend:8000/api/v1'
+    ? process.env.INTERNAL_API_URL || 'http://localhost:8097/api/v1'
     : import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
 export const SANCTUM_TOKEN_KEY = 'cms_dpm_sanctum_token'
 
