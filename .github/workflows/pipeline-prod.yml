@@ -170,6 +170,5 @@ jobs:
             export FRONTEND_IMAGE="${{ steps.meta.outputs.frontend_image }}"
             docker compose -f docker-compose.deploy.yml pull
             docker compose -f docker-compose.deploy.yml up -d --remove-orphans
-            docker compose -f docker-compose.deploy.yml exec -T backend php artisan migrate --force
             docker image prune -f
 
