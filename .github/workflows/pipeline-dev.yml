@@ -164,6 +164,14 @@ jobs:
             set -e
             cd "${{ secrets.DEPLOY_PATH || '/home/aplications/development/cms-deperumaster' }}"
             [ -f backend-cms/.env ] || cp backend-cms/.env.example backend-cms/.env
+            if ! grep -qE "^APP_KEY=base64:.+" backend-cms/.env; then
+              NEW_KEY="base64:$(openssl rand -base64 32)"
+              if grep -q "^APP_KEY=" backend-cms/.env; then
+                sed -i "s|^APP_KEY=.*|APP_KEY=${NEW_KEY}|" backend-cms/.env
+              else
+                echo "APP_KEY=${NEW_KEY}" >> backend-cms/.env
+              fi
+            fi
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
             export DEPLOY_ENV="dev"
             export COMPOSE_PROJECT_NAME="cms-deperumaster-dev"
